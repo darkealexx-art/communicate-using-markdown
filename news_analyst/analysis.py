@@ -8,7 +8,15 @@ from typing import List
 from news_analyst.models import NewsItem
 from news_analyst.utils import extract_keywords, normalize_text
 
-RISK_KEYWORDS = {"crisis", "conflicto", "alerta", "emergencia", "inflacion", "tension"}
+RISK_KEYWORDS = {
+    "crisis",
+    "conflicto",
+    "alerta",
+    "emergencia",
+    "inflacion",
+    "tension",
+    "ciberseguridad",
+}
 OPPORTUNITY_KEYWORDS = {"inversion", "crecimiento", "acuerdo", "innovacion", "avance"}
 
 
