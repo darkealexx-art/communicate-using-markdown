@@ -155,4 +155,4 @@ class DeltaProcessor:
 
 
 class DeltaLogicProcessor(DeltaProcessor):
-    pass
+    """Backward-compatible alias for integrations that still import DeltaLogicProcessor."""
