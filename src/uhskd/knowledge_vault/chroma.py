@@ -93,9 +93,9 @@ class KnowledgeVault:
         self._collection.upsert(ids=ids, documents=chunks, embeddings=embeddings, metadatas=metadatas)
         return ids
 
-    def query_knowledge(self, text: str, n_results: int = 5) -> Sequence[SimilarityMatch]:
+    def query_knowledge(self, text: str, top_k: int = 5) -> Sequence[SimilarityMatch]:
         embedding = self._model.encode([text], convert_to_numpy=True).tolist()
-        results = self._collection.query(query_embeddings=embedding, n_results=n_results)
+        results = self._collection.query(query_embeddings=embedding, n_results=top_k)
         ids = results.get("ids", [[]])[0]
         documents = results.get("documents", [[]])[0]
         metadatas = results.get("metadatas", [[]])[0]

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import warnings
 from typing import Any, Iterable, Sequence
 from uuid import uuid4
 
@@ -141,7 +142,7 @@ class DeltaProcessor:
 
     def _retrieve_matches(self, text: str) -> Iterable[SimilarityMatch]:
         if hasattr(self._vault, "query_knowledge"):
-            return self._vault.query_knowledge(text, n_results=self._config.top_k)
+            return self._vault.query_knowledge(text, top_k=self._config.top_k)
         return self._vault.query_similar(text, top_k=self._config.top_k)
 
     def _noise_result(self, segment: TranscriptSegment, reason: str) -> DeltaResult:
@@ -155,4 +156,17 @@ class DeltaProcessor:
 
 
 class DeltaLogicProcessor(DeltaProcessor):
-    """Backward-compatible alias for integrations that still import DeltaLogicProcessor."""
+    """Deprecated alias for DeltaProcessor; use DeltaProcessor instead."""
+
+    def __init__(
+        self,
+        vault: KnowledgeVaultProtocol,
+        config: DeltaConfig | None = None,
+        cross_encoder: Any | None = None,
+    ) -> None:
+        warnings.warn(
+            "DeltaLogicProcessor is deprecated; use DeltaProcessor instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(vault, config=config, cross_encoder=cross_encoder)
