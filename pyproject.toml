@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uhskd"
+version = "0.1.0"
+description = "Ultra-High Speed Knowledge Distiller skeleton"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "faster-whisper>=1.1.0",
+  "chromadb>=0.5.5",
+  "langchain>=0.2.12",
+  "langgraph>=0.2.37",
+]
+
+[project.optional-dependencies]
+ingestion = [
+  "watchfiles>=0.22.0",
+  "yt-dlp>=2026.02.21",
+]
+dev = ["pytest>=8.2.0"]
+
+[project.scripts]
+uhskd = "uhskd.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
