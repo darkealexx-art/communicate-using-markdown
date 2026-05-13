@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
-from uhskd.delta.processor import DeltaLogicProcessor
+from uhskd.delta.processor import DeltaProcessor
 from uhskd.ingestion.base import IngestionSource
 from uhskd.models import DeltaResult, IngestItem, Transcript
 from uhskd.output.markdown import MarkdownOutputGenerator
@@ -23,7 +23,7 @@ class Pipeline:
     def __init__(
         self,
         transcriber: Transcriber,
-        delta_processor: DeltaLogicProcessor,
+        delta_processor: DeltaProcessor,
         output_generator: MarkdownOutputGenerator | None = None,
     ) -> None:
         self._transcriber = transcriber

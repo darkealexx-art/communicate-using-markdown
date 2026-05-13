@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TypedDict
 
-from uhskd.delta.processor import DeltaLogicProcessor
+from uhskd.delta.processor import DeltaProcessor
 from uhskd.models import DeltaResult, IngestItem, Transcript
 from uhskd.output.markdown import MarkdownOutputGenerator
 from uhskd.transcription import Transcriber
@@ -17,7 +17,7 @@ class PipelineState(TypedDict):
 
 def build_langgraph_flow(
     transcriber: Transcriber,
-    delta_processor: DeltaLogicProcessor,
+    delta_processor: DeltaProcessor,
     output_generator: MarkdownOutputGenerator | None = None,
 ):
     try:

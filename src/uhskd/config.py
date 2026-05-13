@@ -105,6 +105,8 @@ def load_config(config_path: Path | None = None) -> AppConfig:
         min_characters=int(delta_data.get("min_characters", DeltaConfig().min_characters)),
         min_confidence=float(delta_data.get("min_confidence", DeltaConfig().min_confidence)),
         top_k=int(delta_data.get("top_k", DeltaConfig().top_k)),
+        cross_encoder_model=delta_data.get("cross_encoder_model", DeltaConfig().cross_encoder_model),
+        summary_template=delta_data.get("summary_template", DeltaConfig().summary_template),
     )
 
     return AppConfig(

@@ -37,8 +37,9 @@ class Transcript:
 
 
 class DeltaLabel(str, Enum):
-    NOVEDAD = "novedad"
-    REFUERZO = "refuerzo"
+    NOVEDAD_ABSOLUTA = "novedad absoluta"
+    MATIZ_REFUERZO = "matiz/refuerzo"
+    REDUNDANTE = "redundante"
     RUIDO = "ruido"
 
 

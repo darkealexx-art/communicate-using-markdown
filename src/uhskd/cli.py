@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from uhskd.config import AppConfig, load_config
-from uhskd.delta.processor import DeltaLogicProcessor
+from uhskd.delta.processor import DeltaProcessor
 from uhskd.ingestion.file_watcher import FileIngestionSource, FolderWatcher
 from uhskd.ingestion.youtube import YouTubeIngestionSource
 from uhskd.knowledge_vault.chroma import ChromaKnowledgeVault
@@ -26,7 +26,7 @@ def build_pipeline(config: AppConfig) -> Pipeline:
         persist_dir=config.vault.persist_dir,
         collection_name=config.vault.collection_name,
     )
-    delta = DeltaLogicProcessor(vault, config.delta)
+    delta = DeltaProcessor(vault, config.delta)
     output = MarkdownOutputGenerator(
         output_dir=config.output.output_dir,
         template_path=config.output.template_path,

@@ -21,7 +21,7 @@ def test_markdown_output_includes_frontmatter(tmp_path: Path) -> None:
     results = [
         DeltaResult(
             segment=transcript.segments[0],
-            label=DeltaLabel.NOVEDAD,
+            label=DeltaLabel.NOVEDAD_ABSOLUTA,
             similarity=0.1,
             reason="nuevo",
             matches=(),

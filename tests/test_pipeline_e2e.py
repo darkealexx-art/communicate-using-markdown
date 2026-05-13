@@ -1,10 +1,15 @@
 from pathlib import Path
 
-from uhskd.delta.processor import DeltaLogicProcessor
+from uhskd.delta.processor import DeltaProcessor
 from uhskd.knowledge_vault.base import InMemoryKnowledgeVault
 from uhskd.models import IngestItem, SourceType, Transcript, TranscriptSegment
 from uhskd.orchestration.pipeline import Pipeline
 from uhskd.output.markdown import MarkdownOutputGenerator
+
+
+class StubCrossEncoder:
+    def predict(self, pairs):
+        return [0.1 for _query, _doc in pairs]
 
 
 class StubTranscriber:
@@ -26,7 +31,7 @@ class StubTranscriber:
 
 def test_pipeline_end_to_end(tmp_path: Path) -> None:
     vault = InMemoryKnowledgeVault()
-    delta = DeltaLogicProcessor(vault)
+    delta = DeltaProcessor(vault, cross_encoder=StubCrossEncoder())
     output = MarkdownOutputGenerator(output_dir=tmp_path)
     pipeline = Pipeline(transcriber=StubTranscriber(), delta_processor=delta, output_generator=output)
 
