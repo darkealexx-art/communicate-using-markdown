@@ -1,77 +1,71 @@
-<header>
+# news_analyst
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
+Sistema automatizado para recopilar, validar, deduplicar, clasificar y analizar noticias recientes en cuatro segmentos: México, internacionales, tecnología y ciencia. El resultado es un informe ejecutivo en formato Word (.docx) con un tono formal y orientado a la toma de decisiones.
 
-# Communicate using Markdown
+## Arquitectura (análisis breve)
 
-_Organize ideas and collaborate using Markdown, a lightweight language for text formatting._
+El sistema se divide en cuatro capas principales: configuración, ingesta, procesamiento/analítica y reporte. La configuración centraliza las fuentes y parámetros en `config.yaml`. La ingesta obtiene noticias desde RSS/JSON/CSV con reintentos y timeouts, transformándolas en un modelo uniforme. El procesamiento aplica validación, deduplicación y scoring de relevancia/impacto. Finalmente, el módulo de reporte sintetiza hallazgos y genera el documento Word con citas de fuentes.
 
-</header>
+## Funcionalidades clave
 
-<!--
-  <<< Author notes: Course start >>>
-  Include start button, a note about Actions minutes,
-  and tell the learner why they should take the course.
--->
+- Obtención de noticias desde RSS, JSON o CSV.
+- Validación de campos mínimos (título y URL).
+- Deduplicación por similitud textual.
+- Puntuación de relevancia (1–5) y nivel de impacto.
+- Síntesis ejecutiva y análisis por segmento.
+- Identificación de tendencias, riesgos y oportunidades.
+- Registro de errores y continuidad ante fallas de fuentes.
+- Exportación a Word (.docx) con citas explícitas.
 
-## Welcome
+## Requisitos
 
-GitHub is about more than code. It’s a platform for software collaboration, and Markdown is one of the most important ways developers can make their communication clear and organized in issues and pull requests. This course will walk you through creating and using headings more effectively, organizing thoughts in bulleted lists, and showing how much work you’ve completed with checklists. You can even use Markdown to add some depth to your work with the help of emoji, images, and links.
+- Python 3.9+
+- Dependencias en `requirements.txt`
 
-- **Who is this for**: New developers, new GitHub users, and students.
-- **What you'll learn**: Use Markdown to add lists, images, and links in a comment or text file.
-- **What you'll build**: We'll update a plain text file and add Markdown formatting, and you can use this file to start your own GitHub Pages site.
-- **Prerequisites**: In this course you will work with pull requests as well as edit files. If these things aren't familiar to you, we recommend you take the [Introduction to GitHub](https://github.com/skills/introduction-to-github) course, first!
-- **How long**: This course takes less than one hour to complete.
+## Instalación
 
-In this course, you will:
+```bash
+python -m pip install -r requirements.txt
+```
 
-1. Add headers
-2. Add an image
-3. Add a code example
-4. Make a task list
-5. Merge your pull request
+Para pruebas:
 
-### How to start this course
+```bash
+python -m pip install -r requirements-dev.txt
+```
 
-1. Scroll to the top of the page and click the down arrow next to the Fork button. Then click 'Create a new fork' to fork this repository.
-2. Right-click **Start course** and open the link in a new tab.
+## Configuración
 
-<!-- For start course, run in JavaScript:
-'https://github.com/new?' + new URLSearchParams({
-  template_owner: 'skills',
-  template_name: 'communicate-using-markdown',
-  owner: '@me',
-  name: 'skills-communicate-using-markdown',
-  description: 'My clone repository',
-  visibility: 'public',
-}).toString()
--->
+Edite `config.yaml` para ajustar fuentes, filtros y salida del reporte.
 
-[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=communicate-using-markdown&owner=%40me&name=skills-communicate-using-markdown&description=My+clone+repository&visibility=public)
+Parámetros principales:
 
-3. In the new tab, most of the prompts will automatically fill in for you.
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   - Scroll down and click the **Create repository** button at the bottom of the form.
-4. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
+- `report`: título, idioma, periodo, rango de fechas, salida.
+- `filters`: puntaje mínimo y umbral de deduplicación.
+- `logging`: nivel y ruta de log.
+- `segments`: fuentes por segmento y sus tipos.
 
-<footer>
+## Uso
 
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
+```bash
+python -m news_analyst --config config.yaml
+```
 
----
+El reporte se generará en la ruta indicada por `report.output_path`.
 
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/communicate-using-markdown) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+## Documentación adicional
 
-&copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+- [Arquitectura del proyecto](docs/architecture.md)
 
-</footer>
+## Pruebas
+
+```bash
+pytest
+```
+
+## Notas de cumplimiento
+
+- Se evita el scraping agresivo.
+- No se evaden paywalls ni se replican artículos completos.
+- Se respetan timeouts y reintentos controlados.
+- El sistema continúa con las demás fuentes si una falla.

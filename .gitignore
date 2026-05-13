@@ -25,6 +25,17 @@
 *.log
 *.sql
 *.sqlite
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+build/
+dist/
+coverage.xml
+.coverage
+.mypy_cache/
+output/
+logs/
 
 # OS generated files #
 ######################
