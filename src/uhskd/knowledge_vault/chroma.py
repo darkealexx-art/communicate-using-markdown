@@ -39,7 +39,7 @@ class ChromaKnowledgeVault(KnowledgeVault):
         distances = results.get("distances", [[]])[0]
 
         matches: list[SimilarityMatch] = []
-        for identifier, document, metadata, distance in zip(ids, documents, metadatas, distances, strict=False):
+        for identifier, document, metadata, distance in zip(ids, documents, metadatas, distances, strict=True):
             similarity = 1.0 - float(distance) if distance is not None else 0.0
             matches.append(
                 SimilarityMatch(
