@@ -6,7 +6,7 @@ import html
 import re
 import unicodedata
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterable, Optional
@@ -79,7 +79,7 @@ def parse_datetime(value: object) -> Optional[datetime]:
     if isinstance(value, datetime):
         return value
     if isinstance(value, (int, float)):
-        return datetime.utcfromtimestamp(value)
+        return datetime.fromtimestamp(value, tz=timezone.utc)
     if isinstance(value, str):
         value = value.strip()
         if not value:

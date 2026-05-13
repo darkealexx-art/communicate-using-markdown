@@ -103,7 +103,9 @@ def load_config(path: str) -> AppConfig:
         )
 
     if not segments:
-        raise ValueError("El archivo config.yaml debe incluir segmentos configurados.")
+        raise ValueError(
+            f"El archivo {path} debe incluir segmentos configurados."
+        )
 
     return AppConfig(
         report=report,
