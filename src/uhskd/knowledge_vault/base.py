@@ -6,7 +6,7 @@ from typing import Iterable, Protocol, Sequence
 from uhskd.models import SimilarityMatch, VaultRecord
 
 
-class KnowledgeVault(Protocol):
+class KnowledgeVaultProtocol(Protocol):
     def upsert(self, records: Sequence[VaultRecord]) -> None:
         ...
 

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Sequence
 from uuid import uuid4
 
-from uhskd.knowledge_vault.base import KnowledgeVault
+from uhskd.knowledge_vault.base import KnowledgeVaultProtocol
 from uhskd.models import DeltaLabel, DeltaResult, SimilarityMatch, Transcript, TranscriptSegment, VaultRecord
 
 
@@ -18,7 +18,7 @@ class DeltaConfig:
 
 
 class DeltaLogicProcessor:
-    def __init__(self, vault: KnowledgeVault, config: DeltaConfig | None = None) -> None:
+    def __init__(self, vault: KnowledgeVaultProtocol, config: DeltaConfig | None = None) -> None:
         self._vault = vault
         self._config = config or DeltaConfig()
 
