@@ -114,6 +114,9 @@ class KnowledgeVault:
             )
         return matches
 
+    def query_similar(self, text: str, top_k: int = 5) -> Sequence[SimilarityMatch]:
+        return self.query_knowledge(text, top_k=top_k)
+
     def _chunk_text(self, text: str) -> list[str]:
         tokenizer = self._model.tokenizer
         tokens = tokenizer.encode(text, add_special_tokens=False)
