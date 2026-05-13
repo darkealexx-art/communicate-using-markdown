@@ -1,0 +1,57 @@
+report:
+  title: "Informe Ejecutivo de Noticias"
+  language: "es"
+  period: "daily"
+  date_range_days: 1
+  max_items_per_segment: 10
+  output_path: "output/informe_noticias.docx"
+
+filters:
+  min_relevance_score: 3
+  deduplication_similarity_threshold: 0.82
+
+logging:
+  level: "INFO"
+  file: "logs/news_analyst.log"
+
+segments:
+  mexico:
+    enabled: true
+    display_name: "Noticias de México"
+    sources:
+      - name: "El Universal"
+        type: "rss"
+        url: "https://www.eluniversal.com.mx/rss.xml"
+        source_type: "medio nacional"
+
+      - name: "Gobierno de México"
+        type: "rss"
+        url: "https://www.gob.mx/rss"
+        source_type: "portal oficial"
+
+  international:
+    enabled: true
+    display_name: "Noticias internacionales"
+    sources:
+      - name: "BBC Mundo"
+        type: "rss"
+        url: "https://feeds.bbci.co.uk/mundo/rss.xml"
+        source_type: "agencia internacional"
+
+  technology:
+    enabled: true
+    display_name: "Noticias de tecnología"
+    sources:
+      - name: "TechCrunch"
+        type: "rss"
+        url: "https://techcrunch.com/feed/"
+        source_type: "medio especializado"
+
+  science:
+    enabled: true
+    display_name: "Noticias de ciencia"
+    sources:
+      - name: "NASA"
+        type: "rss"
+        url: "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+        source_type: "portal científico"
